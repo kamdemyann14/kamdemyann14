@@ -1,0 +1,831 @@
+<!DOCTYPE
+html >
+  <html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Médical Moderne</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        
+        :root {
+            --primary: #4361ee; 
+            --primary-light: #eef2ff;
+            --secondary: #3ccfcf;
+            --text-primary: #333;
+            --text-secondary: #64748b;
+            --text-tertiary: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --white: #ffffff;
+            --light-bg: #f8fafc;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius: 16px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-primary);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+      
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
+        }
+        
+    /* Balance Widget */
+    .balance-widget {
+        background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+        border-radius: var(--border-radius);
+        padding: 20px;
+        color: var(--white);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        box-shadow: var(--card-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .balance-widget::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+    
+    .balance-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .balance-icon {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+    
+    .balance-details h3 {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        opacity: 0.9;
+    }
+    
+    .balance-amount {
+        font-size: 28px;
+        font-weight: 700;
+    }
+    
+    .balance-trend {
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .trend-up {
+        color: #4ade80;
+    }
+    
+    .trend-down {
+        color: #f87171;
+    }
+        
+        /* Welcome Section */
+        .welcome-card {
+            background: linear-gradient(to right, var(--primary), #4f46e5);
+            border-radius: var(--border-radius);
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .welcome-card::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: 30%;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .welcome-text h1 {
+            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .welcome-text h2 {
+            font-weight: 400;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .doctor-avatar {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .doctor-avatar img {
+            width: 120px;
+            height: auto;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+            height: 100%;
+        }
+        
+        .card-header {
+            margin-bottom: 42px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--text-tertiary);
+        }
+
+        .period-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4361ee;
+            display: inline-block;
+        }
+        
+        /* Appointments Card */ /*donut*/
+        
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 47px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+        
+        .color-waiting {
+            background-color: var(--primary);
+        }
+        
+        .color-Annulé {
+            background-color: var(--danger);
+        }
+        
+        .color-Terminé {
+            background-color: var(--success);
+        }
+        
+        .legend-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        /* Finance Card */
+        .card-header-with-filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: -23px;
+        }
+        
+        .filter-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        
+        .day-number {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        
+        .day-name {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+        
+        .finance-summary {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--primary-light);
+            border-radius: 12px;
+        }
+        
+        .summary-icon {
+            width: 46px;
+            height: 46px;
+            background-color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+        
+        .summary-details {
+            flex: 1;
+        }
+        
+        .summary-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+        
+        .summary-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        
+        
+        <!-- Welcome Section -->
+        <div class="welcome-card">
+            <div class="welcome-text">
+                <h1>Bienvenue,</h1>
+                <h2>Docteur Nathalie</h2>
+            </div>
+            <div class="doctor-avatar">
+                <img src=" "><!--imageeeeeeeeeeeeeeeeeeeeeeeeee-->
+            </div>
+        </div>
+        
+        <!-- Balance Widget -->
+        <div class="balance-widget">
+            <div class="balance-info">
+                <div class="balance-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="balance-details">
+                    <h3>Solde actuel</h3>
+                    <div class="balance-amount">125,750 FCFA</div>
+                </div>
+            </div>
+            <div class="balance-trend">
+                <i class="fas fa-arrow-up trend-up"></i>
+                <span>+12.8% ce mois</span>
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Appointments Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Rendez-vous</h3>
+                    <p class="card-subtitle">Mes rendez-vous</p>
+                </div>
+                
+                <div class="donut-chart-wrapper">
+    <canvas id="appointmentChart" width="260" height="260"></canvas>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('appointmentChart').getContext('2d');
+        
+        // Données pour le graphique circulaire
+        const data = {
+            labels: ['En attente', 'Annulé', 'Terminé'],
+            datasets: [{
+                data: [35, 40 , 25], // Pourcentages pour chaque segment
+                backgroundColor: [
+                  '#4361ee',
+                  '#ef4444',
+                  '#10b981'
+              ],
+
+                borderWidth: 0,
+                cutout: '85%',  // Crée l'effet donut
+                hoverOffset: 3.5 // Effet de zoom au survol
+            }]
+        };
+        
+        // Configuration du graphique
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false // Masquer la légende car nous utilisons notre propre légende personnalisée
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                // Animation au survol
+                onHover: (event, chartElement) => {
+                    if (chartElement.length === 1) {
+                        document.getElementById('appointmentChart').style.cursor = 'pointer';
+                    } else {
+                        document.getElementById('appointmentChart').style.cursor = 'default';
+                    }
+                },
+                hover: {
+                    mode: 'nearest'
+                }
+            }
+        };
+        
+        // Création du graphique
+        const appointmentChart = new Chart(ctx, config);
+    });
+</script>
+               
+
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color color-waiting"></div>
+                        <span class="legend-text">En attente</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-Annulé"></div>
+                        <span class="legend-text">Annulé</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-Terminé"></div>
+                        <span class="legend-text">Terminé</span>
+                    </div>
+                </div>
+            </div>
+            
+                <!--GRAPH ciirculaire-->
+            
+                <!--GRAPHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH-->
+                
+                <style>
+                    body {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        font-family: Arial, sans-serif;
+                        max-width: 10000px;
+                        margin: 0 auto;
+                        padding: 20px;
+                    }
+                    .container {
+                        width: 100%;
+                        margin-bottom: 40px;
+                    }
+                    h1 {
+                        color: #2c3e50;
+                        text-align: center;
+                    }
+                    .chart-container {  /*Dimensions du graph*/
+                        position: relative;
+                        height: 350px;
+                        width: 100%;
+                    }
+                    .controls {
+                        display: flex;
+                        justify-content: center;
+                        margin: 20px 0;
+                        margin-right: 26px;
+                    }
+                    select { /*Boutton pour choix des jours */
+                        padding: 7px 25px;
+                        background-color: var(--white);
+                        border: 1px solid #e2e8f0;
+                        border-radius: 8px;
+                        font-size: 14px;
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                    }
+                    select:hover {
+                       border-color: var(--primary);
+                    }
+                    
+                </style>
+            
+                <!-- Finance Card -->
+            <div class="card">
+                <div class="card-header-with-filter">
+                    <div>
+                        <h3 class="card-title">Mes finances</h3>
+                        <p class="period-title" id="period-title">Entrées journalières</p>
+                    </div>
+                    <div>
+                        <p class="filter-label">Filtre</p>
+                        <div class="container">
+                            <div class="controls">
+                                <select id="period-selector">
+                                    <option value="day">Jour</option>
+                                    <option value="week">Semaine</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                       </div>
+                   </div>
+                </div>
+               
+                    <div class="chart-container">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>                        <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+
+                            <!--......................................................................................-->
+                           
+                        <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+                <script>
+                    // Données pour les différentes périodes
+                    const data = {
+                        day: {
+                            labels: ['8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h'],
+                            datasets: [
+                                {
+                                    label: 'Entrées financières (FCFA)',
+                                    data: [50, 100, 125, 100, 50, 25, 75, 125, 100, 75, 25],
+                                    borderColor: '#007BFF',
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Nombre de consultations',
+                                    data: [2, 4, 5, 4, 2, 1, 3, 5, 4, 3, 1],
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y1'
+                                },
+                                {
+                                    label: 'Nombre de patients',
+                                    data: [2, 4, 5, 4, 2, 1, 3, 5, 4, 3, 1],
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y1'
+                                }
+                            ]
+                        },
+                        week: {
+                            labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+                            datasets: [
+                                {
+                                    label: 'Entrées financières (FCFA)',
+                                    data: [625, 700, 550, 750, 600, 375, 0],
+                                    borderColor: '#007BFF',
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Nombre de consultations',
+                                    data: [25, 28, 22, 30, 24, 15, 0],
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y1'
+                                },
+                                {
+                                    label: 'Nombre de patients',
+                                    data: [23, 26, 20, 28, 22, 15, 0],
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y1'
+                                }
+                            ]
+                        },
+                        month: {
+                            labels: ['1', '5', '10', '15', '20', '25', '30'],
+                            datasets: [
+                                {
+                                    label: 'Entrées financières (FCFA)',
+                                    data: [3000, 3750, 3250, 3500, 3625, 3375, 3125],
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Nombre de consultations',
+                                    data: [120, 150, 130, 140, 145, 135, 125],
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y1'
+                                },
+                                {
+                                    label: 'Nombre de patients',
+                                    data: [110, 140, 120, 130, 135, 125, 115],
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y1'
+                                }
+                            ]
+                        },
+                        year: {
+                            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
+                            datasets: [
+                                {
+                                    label: 'Entrées financières (FCFA)',
+                                    data: [10000, 10500, 11250, 12000, 12500, 13000, 12750, 12250, 13250, 13750, 13000, 12250],
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Nombre de consultations',
+                                    data: [400, 420, 450, 480, 500, 520, 510, 490, 530, 550, 520, 490],
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y1'
+                                },
+                                {
+                                    label: 'Nombre de patients',
+                                    data: [380, 400, 430, 460, 480, 500, 490, 470, 510, 530, 500, 470],
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderWidth: 2,
+                                    tension: 0.3,
+                                    fill: true,
+                                    yAxisID: 'y1'
+                                }
+                            ]
+                        }
+                    };
+            
+                    // Contexte du canvas
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    
+                    // Titres pour les périodes
+                    const periodTitles = {
+                        day: 'Entrées journalières',
+                        week: 'Entrées hebdomadaires',
+                        month: 'Entrées mensuelles',
+                        year: 'Entrées annuelles'
+                    };
+                    
+                    // Configuration initiale du graphique
+                    let myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: data.day,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: false // Ne plus afficher le titre dans le graphique
+                                },
+                                legend: {
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false,
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'left',
+                                    title: {
+                                        display: true,
+                                        text: 'Entrées financières (FCFA)'
+                                    }
+                                },
+                                y1: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'right',
+                                    grid: {
+                                        drawOnChartArea: false,
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Nombre'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Heure'
+                                    }
+                                }
+                            }
+                        }
+                    });
+            
+                    // Fonction pour mettre à jour le graphique
+                    function updateChart(period) {
+                        // Destruction du graphique existant
+                        myChart.destroy();
+                        
+                        // Titres pour les axes X selon la période
+                        const xTitles = {
+                            day: 'Heure',
+                            week: 'Jour',
+                            month: 'Jour du mois',
+                            year: 'Mois'
+                        };
+                        
+                        // Mise à jour du titre de période
+                        document.getElementById('period-title').textContent = periodTitles[period];
+                        
+                        // Création du nouveau graphique
+                        myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: data[period],
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    title: {
+                                        display: false // Ne plus afficher le titre dans le graphique
+                                    },
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    tooltip: {
+                                        mode: 'index',
+                                        intersect: false,
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        type: 'linear',
+                                        display: true,
+                                        position: 'left',
+                                        title: {
+                                            display: true,
+                                            text: 'Entrées financières (FCFA)'
+                                        }
+                                    },
+                                    y1: {
+                                        type: 'linear',
+                                        display: true,
+                                        position: 'right',
+                                        grid: {
+                                            drawOnChartArea: false,
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Nombre'
+                                        }
+                                    },
+                                    x: {
+                                        title: {
+                                            display: true,
+                                            text: xTitles[period]
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+            
+                    // Gestion des événements pour le sélecteur de période
+                    document.getElementById('period-selector').addEventListener('change', function() {
+                        updateChart(this.value);
+                    });
+                </script>
+                
+                <!--GRAPHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH      <script src="script.js"></script>  HH-->
+                
+            </body>
+            </html>
+               
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
