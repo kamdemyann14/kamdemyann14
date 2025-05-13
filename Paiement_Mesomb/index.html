@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique en Ligne</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Ma Boutique</h1>
+      <div class="cart-icon" id="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="products-section">
+      <div class="filters">
+        <h2>Nos Produits</h2>
+        <div class="sort-options">
+          <label for="sort">Trier par:</label>
+          <select id="sort">
+            <option value="default">Par défaut</option>
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix décroissant</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="products" id="products-container">
+        <!-- Products will be loaded here via JavaScript -->
+      </div>
+    </section>
+
+    <section class="cart-section" id="cart-section">
+      <div class="cart-header">
+        <h2>Votre Panier</h2>
+        <button id="close-cart" class="close-btn">&times;</button>
+      </div>
+      <div id="cart-items">
+        <!-- Cart items will be loaded here -->
+      </div>
+      <div class="cart-total">
+        <h3>Total: <span id="cart-total">0</span> FCFA</h3>
+      </div>
+      <button id="checkout-btn" class="btn checkout-btn">Passer la commande</button>
+    </section>
+
+    <section class="checkout-section" id="checkout-section">
+      <div class="checkout-header">
+        <h2>Finaliser votre commande</h2>
+        <button id="close-checkout" class="close-btn">&times;</button>
+      </div>
+      <form id="checkout-form">
+        <div class="form-group">
+          <label for="name">Nom complet</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Téléphone</label>
+          <input type="tel" id="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Adresse de livraison</label>
+          <textarea id="address" required></textarea>
+        </div>
+        <button type="submit" class="btn payment-btn">Payer avec Mobile Money</button>
+      </form>
+    </section>
+  </main>
+
+  <div id="notification" class="notification">
+    <p id="notification-message"></p>
+  </div>
+
+  <div id="payment-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Traitement du paiement</h2>
+      <div id="payment-status" class="payment-status">
+        <div class="loader"></div>
+        <p>Traitement en cours...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
